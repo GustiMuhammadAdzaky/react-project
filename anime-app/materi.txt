@@ -1,0 +1,18 @@
+36:00
+// Stateless / Presentation Component
+-   tidak memiliki state
+-   menerima props untuk menampilkan data
+-   biasanya kecil dan reuseble
+
+// statefull
+-   memiliki state
+-   bisa dibuat reusable
+
+
+// Structural Component
+-   Berperan untuk membuat struktur aplikasi(Layout, Screen, Pages)
+    Dihasilkan dari komposisi
+-   berukuran besar, biasanya no reusable
+-   Berukuran Besasr dan non reusable
+
+

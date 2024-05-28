@@ -184,4 +184,4 @@ function AnimeDetail({selectedAnime}) {
   )
 }
 
-// 57:08 : https://www.youtube.com/watch?v=-9Z9a91vTLc&t=1153s
+// 57:08 : w
