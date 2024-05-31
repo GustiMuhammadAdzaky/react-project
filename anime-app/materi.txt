@@ -16,3 +16,21 @@
 -   Berukuran Besasr dan non reusable
 
 
+
+-----------------Teknik - Teknik dalam react-------------------------
+// Lifting State Up
+Menaikan state keatas, agar state lebih universal(bisa digunakan banyak) - kadang bisa menghasilkan drilling konsep(ngebor)
+
+// Component composition
+-   Sebuah teknik untuk merancang/membuat sebuah komponen
+-   proses memecah bagian-bagian menjadi komponen kecil, lalu menggabungkannya menjadi komponen yang lebih besar
+-   Bertujuan agar komponen tersebut mudah untuk deikelola dan digunakan kembali
+-> Manfaat
+- reusable(mudah digunakan kembali) 
+- Modularity(memecah agar mudah dipahami)
+- seperation on concerns(setiap komponen dapat fokus pada fungsionalnya yag spesifik, agar mudah di test/debug)
+- mudah di maintain
+-> Caranya?
+- Buat komponen agar mengerjakan hal yang spesifik
+- Gunakan Content Component(menggunakan props special: childern)
+- bisa digunakann untuk memperbaiki prop drilling

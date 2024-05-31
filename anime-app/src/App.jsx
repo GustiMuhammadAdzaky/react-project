@@ -41,147 +41,78 @@ const animesData = [
 ];
 
 export default function App() {
-  return (
-    <>
-      <Navbar/>
-      <Main/>
-    </>
-  );
-}
-
-
-function Navbar() {
-  
-  return(
-    <nav className="nav-bar">
-        <Logo/>
-        <Search/>
-    </nav>
-  )
-}
-
-function Logo() {
-  return(
-    <div className="logo">
-      <span role="img">🍥</span>
-      <h1>WeeBoo</h1>
-      <span role="img">🍥</span>
-    </div>
-  )
-}
-
-function Search() {
   const [query, setQuery] = useState('');
-  return(
-    <div className="search-container">
-      <input className="search" type="text" placeholder="Search anime..." value={query} onChange={(e) => setQuery(e.target.value)} />
-      <NumResult/>
-    </div>
-  )
-}
-
-function NumResult() {
-  return(
-    <p className="search-results"> Found <strong>4</strong> results</p>
-  )
-}
-
-function Main() {
-
   const [animes, setAnimes] = useState(animesData);
-  const [selectedAnime, setSelectedAnime] = useState(animes[0]); // pindahkan ke bawah
-  
- 
+  const [selectedAnime, setSelectedAnime] = useState(animes[0]);
+  const [isOpen1, setIsOpen1] = useState(true);
+  const [isOpen2, setIsOpen2] = useState(true);
+
   function handleSelectedAnime(id) {
     const newAnime = animes.filter((anime) => anime.mal_id === id);
     setSelectedAnime(newAnime[0]);
   }
-  return(
-    <main className="main">
-      <ListBox animes={animes} onSelectedAnime={handleSelectedAnime}/>
-      <SelectedBox selectedAnime={selectedAnime}/>
-    </main>
-  )
-}
 
+  return (
+    <>
+      <nav className="nav-bar">
+        <div className="logo">
+          <span role="img">🍥</span>
+          <h1>WeeBoo</h1>
+          <span role="img">🍥</span>
+        </div>
+        <div className="search-container">
+          <input className="search" type="text" placeholder="Search anime..." value={query} onChange={(e) => setQuery(e.target.value)} />
+          <p className="search-results">
+            Found <strong>4</strong> results
+          </p>
+        </div>
+      </nav>
 
-function ListBox({onSelectedAnime, animes}) {
- 
-  const [isOpen1, setIsOpen1] = useState(true);
-  return(
-    <div className="box">
+      <main className="main">
+        <div className="box">
           <button className="btn-toggle" onClick={() => setIsOpen1((open) => !open)}>
             {isOpen1 ? '–' : '+'}
           </button>
           {isOpen1 && (
-            <AnimeList animes={animes} onSelectedAnime={onSelectedAnime} />
+            <ul className="list list-anime">
+              {animes?.map((anime) => (
+                <li key={anime.mal_id} onClick={() => handleSelectedAnime(anime.mal_id)}>
+                  <img src={anime.image} alt={`${anime.title} cover`} />
+                  <h3>{anime.title}</h3>
+                  <div>
+                    <p>
+                      <span>{anime.year}</span>
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
           )}
-      </div>
-  )
-}
-
-
-function AnimeList({animes, onSelectedAnime}) {
-  return(
-    <ul className="list list-anime">
-      {animes?.map((anime) => (
-        <Anime key={anime.mal_id} anime={anime} onSelectedAnime={onSelectedAnime}/>
-      ))}
-    </ul>
-  )
-}
-
-
-function Anime({anime, onSelectedAnime}) {
-  return(
-    <li onClick={() => onSelectedAnime(anime.mal_id)}>
-      <img src={anime.image} alt={`${anime.title} cover`} />
-        <h3>{anime.title}</h3>
-        <div>
-          <p>
-            <span>{anime.year}</span>
-          </p>
         </div>
-    </li>
-  )
-}
-
-function SelectedBox({selectedAnime}) {
-  const [isOpen2, setIsOpen2] = useState(true);
-
-  return(
-    <div className="box">
-        <button className="btn-toggle" onClick={() => setIsOpen2((open) => !open)}>
-          {isOpen2 ? '–' : '+'}
-        </button>
-        {isOpen2 && (
-          <AnimeDetail selectedAnime={selectedAnime}/>
-        )}
-      </div>
+        <div className="box">
+          <button className="btn-toggle" onClick={() => setIsOpen2((open) => !open)}>
+            {isOpen2 ? '–' : '+'}
+          </button>
+          {isOpen2 && (
+            <div className="details">
+              <header>
+                <img src={selectedAnime.image} alt={`${selectedAnime.title} cover`} />
+                <div className="details-overview">
+                  <h2>{selectedAnime.title}</h2>
+                  <p>
+                    {selectedAnime.year} &bull; {selectedAnime.score}
+                  </p>
+                </div>
+              </header>
+              <section>
+                <p>
+                  <em>{selectedAnime.synopsis}</em>
+                </p>
+              </section>
+            </div>
+          )}
+        </div>
+      </main>
+    </>
   );
 }
-
-
-
-function AnimeDetail({selectedAnime}) {
-  return(
-    <div className="details">
-      <header>
-        <img src={selectedAnime.image} alt={`${selectedAnime.title} cover`} />
-        <div className="details-overview">
-          <h2>{selectedAnime.title}</h2>
-            <p>
-              {selectedAnime.year} &bull; {selectedAnime.score}
-            </p>
-          </div>
-      </header>
-      <section>
-        <p>
-          <em>{selectedAnime.synopsis}</em>
-        </p>
-      </section>
-    </div>
-  )
-}
-
-// 57:08 : w
